@@ -28,6 +28,7 @@ public static class GameObjectExtensionMethods
             i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(Receiver<>)))
         {
             var messageType = inter.GetGenericArguments().First();
+            MessageSystem.GetMessageSystem().unregisterReceiver(messageType, receiver);
         }
     }
 }
