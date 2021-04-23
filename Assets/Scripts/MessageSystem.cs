@@ -8,7 +8,7 @@ public static class GameObjectExtensionMethods
 {
     public static void MessageSystemPush<U, T>(this U sender, T message) where U : MonoBehaviour
     {
-        MessageSystem.GetMessageSystem().pushMessage(message, sender.gameObject);
+        MessageSystem.GetMessageSystem()?.pushMessage(message, sender.gameObject);
         return;
     }
 
@@ -18,7 +18,7 @@ public static class GameObjectExtensionMethods
             i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(Receiver<>)))
         {
             var messageType = inter.GetGenericArguments().First();
-            MessageSystem.GetMessageSystem().registerReceiver(messageType, receiver);
+            MessageSystem.GetMessageSystem()?.registerReceiver(messageType, receiver);
         }
     }
 
@@ -28,7 +28,7 @@ public static class GameObjectExtensionMethods
             i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(Receiver<>)))
         {
             var messageType = inter.GetGenericArguments().First();
-            MessageSystem.GetMessageSystem().unregisterReceiver(messageType, receiver);
+            MessageSystem.GetMessageSystem()?.unregisterReceiver(messageType, receiver);
         }
     }
 }
@@ -41,12 +41,23 @@ public interface Receiver<T>
 public class MessageSystem : MonoBehaviour
 {
     private static MessageSystem theMessageSystem;
+    private static bool isQuitting = false;
+
+    public static bool IsQuitting()
+    {
+        return isQuitting;
+    }
 
     public static MessageSystem GetMessageSystem()
     {
         if (theMessageSystem == null)
         {
             theMessageSystem = FindObjectOfType<MessageSystem>();
+        }
+        // To avoid Unity errors during shutdown, GetMessageSystem should be called with ?
+        if (theMessageSystem == null && !IsQuitting())
+        {
+            Debug.LogError("GetMessageSystem returned null, expected behavior on shutdown");
         }
         return theMessageSystem;
     }
@@ -64,13 +75,16 @@ public class MessageSystem : MonoBehaviour
     private Dictionary<System.Type, MethodInfo> invokeType = new Dictionary<System.Type, MethodInfo>();
     private Dictionary<System.Type, Dictionary<int, MessageSendAction>> messageDelegates = new Dictionary<System.Type, Dictionary<int, MessageSendAction>>();
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        GetMessageSystem();
     }
 
-    // Update is called once per frame
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
+    }
+
     void Update()
     {
         while (messageQueue.Count > 0)
@@ -135,6 +149,6 @@ public class MessageSystem : MonoBehaviour
 
     public void pushMessage<T>(T message, GameObject sender)
     {
-        this.messageQueue.Enqueue(new MessageWrapper() { messageType = typeof(T), theMessage = message, sender = sender });
+        messageQueue.Enqueue(new MessageWrapper() { messageType = typeof(T), theMessage = message, sender = sender });
     }
 }
