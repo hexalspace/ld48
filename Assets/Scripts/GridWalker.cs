@@ -62,14 +62,15 @@ public class GridWalker : MonoBehaviour
 
         float elapsed = 0;
         Vector3 initialPos = transform.position;
+        Vector3 finalPos = initialPos + moveDelta;
         
         while (elapsed <= moveTime)
         {
             elapsed += Time.deltaTime;
-            transform.position = (initialPos + moveDelta * (elapsed / moveTime));
+            transform.position = Vector3.Lerp(initialPos, finalPos, elapsed / moveTime);
             yield return null;
         }
-        transform.position = initialPos + moveDelta;
+        transform.position = finalPos;
 
         yield return new WaitForSeconds(nextMoveDelay);
         isMoving = false;

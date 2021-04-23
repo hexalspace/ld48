@@ -198,9 +198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a98e0c902a3b5e34a8c3c4458ac22a94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 2
-  moveTime: 0.2
-  nextMoveDelay: 0.02
+  gridSize: 1
+  moveTime: 0.22
+  nextMoveDelay: 0.04
 --- !u!65 &384344652
 BoxCollider:
   m_ObjectHideFlags: 0
