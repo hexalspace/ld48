@@ -6,7 +6,7 @@ using System.Reflection;
 
 public static class GameObjectExtensionMethods
 {
-    public static void MessageSystemPush<U, T>(this U sender, T message) where U : MonoBehaviour
+    public static void MessageSystemPush<T>(this MonoBehaviour sender, T message)
     {
         MessageSystem.GetMessageSystem()?.pushMessage(message, sender.gameObject);
         return;
@@ -52,7 +52,8 @@ public class MessageSystem : MonoBehaviour
     {
         if (theMessageSystem == null)
         {
-            theMessageSystem = FindObjectOfType<MessageSystem>();
+            var go = new GameObject("Message System");
+            theMessageSystem = go.AddComponent<MessageSystem>();
         }
         // To avoid Unity errors during shutdown, GetMessageSystem should be called with ?
         if (theMessageSystem == null && !IsQuitting())
@@ -74,11 +75,6 @@ public class MessageSystem : MonoBehaviour
     private Queue<MessageWrapper> messageQueue = new Queue<MessageWrapper>();
     private Dictionary<System.Type, MethodInfo> invokeType = new Dictionary<System.Type, MethodInfo>();
     private Dictionary<System.Type, Dictionary<int, MessageSendAction>> messageDelegates = new Dictionary<System.Type, Dictionary<int, MessageSendAction>>();
-
-    private void Awake()
-    {
-        GetMessageSystem();
-    }
 
     private void OnApplicationQuit()
     {

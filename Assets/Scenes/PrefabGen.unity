@@ -509,10 +509,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TheHall
       objectReference: {fileID: 0}
-    - target: {fileID: 7113694423878729346, guid: 751d0eff94efa5443ae34d20ff6fdfec, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 751d0eff94efa5443ae34d20ff6fdfec, type: 3}
 --- !u!1 &1334244535
@@ -738,7 +734,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634254527}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.54, z: 0}
+  m_LocalPosition: {x: 3.24, y: 3.67, z: 9.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1334244536}
