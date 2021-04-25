@@ -248,6 +248,7 @@ MonoBehaviour:
   hallwayPrefab: {fileID: 7113694423878729346, guid: 751d0eff94efa5443ae34d20ff6fdfec, type: 3}
   hallwayObjectPrefabs:
   - {fileID: 1455743900227102571, guid: b48979f42d2989548872d93a92fd6a89, type: 3}
+  - {fileID: 8546035575007714292, guid: 235f21e91e2f7f149a5304d1fab75864, type: 3}
   lengthDivisions: 20
   widthDivisions: 2
   gridSize: 5

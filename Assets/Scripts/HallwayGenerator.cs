@@ -24,9 +24,11 @@ public class HallwayGenerator : MonoBehaviour
             for (var xdiv = 0; xdiv < widthDivisions; xdiv++)
             {
                 Vector3 spawnPosition = hallway.transform.position + Vector3.forward * zdiv * gridSize + Vector3.right * xdiv * gridSize;
-                if (Random.value <= 0.5f)
+                var randomPrefab = Random.Range(0, hallwayObjectPrefabs.Count);
+                
+                if (Random.value <= 0.75f)
                 {
-                    var steps = Instantiate(hallwayObjectPrefabs[0], spawnPosition, Quaternion.identity);
+                    var steps = Instantiate(hallwayObjectPrefabs[randomPrefab], spawnPosition, Quaternion.identity);
                     steps.transform.parent = hallway.transform;
                 }
             }
