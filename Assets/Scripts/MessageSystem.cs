@@ -96,7 +96,7 @@ public class MessageSystem : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"No one interested in {message}");
+                Debug.LogWarning($"No one interested in {message} of type {message.messageType}");
             }
         }
     }
@@ -120,7 +120,7 @@ public class MessageSystem : MonoBehaviour
 
         if (actionById.ContainsKey(receiver.GetInstanceID()))
         {
-            throw new System.Exception("Should not register twice!");
+            throw new System.Exception($"Should not register twice! {receiver.GetInstanceID()}");
         }
 
         actionById[receiver.GetInstanceID()] = (MessageWrapper mw) =>
@@ -134,12 +134,12 @@ public class MessageSystem : MonoBehaviour
         Dictionary<int, MessageSendAction> actionById = null;
         if (!messageDelegates.TryGetValue(messageType, out actionById))
         {
-            throw new System.Exception("Bad deregister type");
+            throw new System.Exception($"Bad deregister type {messageType}");
         }
 
         if (!actionById.Remove(receiver.GetInstanceID()))
         {
-            throw new System.Exception("Bad deregister instanceId");
+            throw new System.Exception($"Bad deregister instanceId {receiver.GetInstanceID()}");
         }
     }
 
