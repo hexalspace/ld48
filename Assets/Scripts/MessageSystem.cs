@@ -42,6 +42,7 @@ public class MessageSystem : MonoBehaviour
 {
     private static MessageSystem theMessageSystem;
     private static bool isQuitting = false;
+    private static int instanceCount = 0;
 
     public static bool IsQuitting()
     {
@@ -50,17 +51,22 @@ public class MessageSystem : MonoBehaviour
 
     public static MessageSystem GetMessageSystem()
     {
-        if (theMessageSystem == null)
+        // To avoid Unity errors during shutdown, GetMessageSystem should be called with ?
+        if (theMessageSystem == null && IsQuitting())
+        {
+            Debug.Log("MessageSystem null on shutdown, expected behavior");
+            return null;
+        }
+        else if (theMessageSystem == null && !IsQuitting())
         {
             var go = new GameObject("Message System");
             theMessageSystem = go.AddComponent<MessageSystem>();
+            return theMessageSystem;
         }
-        // To avoid Unity errors during shutdown, GetMessageSystem should be called with ?
-        if (theMessageSystem == null && !IsQuitting())
+        else
         {
-            Debug.LogError("GetMessageSystem returned null, expected behavior on shutdown");
+            return theMessageSystem;
         }
-        return theMessageSystem;
     }
 
     private struct MessageWrapper
@@ -75,6 +81,15 @@ public class MessageSystem : MonoBehaviour
     private Queue<MessageWrapper> messageQueue = new Queue<MessageWrapper>();
     private Dictionary<System.Type, MethodInfo> invokeType = new Dictionary<System.Type, MethodInfo>();
     private Dictionary<System.Type, Dictionary<int, MessageSendAction>> messageDelegates = new Dictionary<System.Type, Dictionary<int, MessageSendAction>>();
+
+    public MessageSystem()
+    {
+        instanceCount++;
+        if (instanceCount > 1)
+        {
+            Debug.LogWarning("Singleton pattern broken");
+        }
+    }
 
     private void OnApplicationQuit()
     {

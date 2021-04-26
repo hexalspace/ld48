@@ -23,7 +23,6 @@ public class HallwayGenerator : MonoBehaviour, Receiver<SendNextWallMessage.Spaw
     {
         var hallway = Instantiate(hallwayPrefab, lowerLeftCorner, Quaternion.identity);
 
-
         for (var zdiv = 0; zdiv < lengthDivisions; zdiv++)
         {
             for (var xdiv = 0; xdiv < widthDivisions; xdiv++)
@@ -44,7 +43,6 @@ public class HallwayGenerator : MonoBehaviour, Receiver<SendNextWallMessage.Spaw
     void Start()
     {
         this.MessageSystemRegister();
-        createHallway(Vector3.zero);
     }
 
     private void OnDestroy()
