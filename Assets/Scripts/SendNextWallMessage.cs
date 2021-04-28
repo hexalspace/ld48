@@ -26,6 +26,6 @@ public class SendNextWallMessage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         this.MessageSystemPush(new SpawnHallInfo { lowerLeftCorner = upperLeftCorner.position });
-        Destroy(this);
+        Destroy(gameObject);
     }
 }

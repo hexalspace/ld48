@@ -249,6 +249,7 @@ MonoBehaviour:
   hallwayObjectPrefabs:
   - {fileID: 1455743900227102571, guid: b48979f42d2989548872d93a92fd6a89, type: 3}
   - {fileID: 8546035575007714292, guid: 235f21e91e2f7f149a5304d1fab75864, type: 3}
+  - {fileID: 5451258137883756651, guid: 2ee7e66dc02a573488607575ef2ccde6, type: 3}
   lengthDivisions: 20
   widthDivisions: 2
   gridSize: 5
@@ -265,6 +266,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1066519589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1066519591}
+  - component: {fileID: 1066519590}
+  m_Layer: 0
+  m_Name: HallwayStarter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1066519590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066519589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cecb3ded5d15e29418948839c1cfb654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1066519591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066519589}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.61, y: 0.2, z: -0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &724799767528501501
 PrefabInstance:
